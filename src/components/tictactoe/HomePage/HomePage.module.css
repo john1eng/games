@@ -1,0 +1,37 @@
+:root{
+    --primary-color: #003F91;
+    --primary-color-light: #5DA9E9;
+    --secondary-color: #8f0000;
+    --primary-color-light: #e95d5d;
+  }
+  .homeContainer{
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+    justify-content: center;
+    align-items: center;
+    font-size:3em;
+    background: lightgray;
+    
+  }
+  .homeContainer span:nth-child(1){
+    color: var(--secondary-color);
+  }
+  .homeContainer span:nth-child(2){
+    color: var(--primary-color);
+  }
+  .homeContainer span:nth-child(3){
+    color: var(--secondary-color);
+  }
+  .homeContainer>button{
+    font-size: .6em;
+    background-color: var(--primary-color);
+    color:white;
+    width:150px;
+    height:50px;
+    border-radius:7px;
+    cursor: pointer;
+  }
+  .homeContainer>button:hover{
+    filter: brightness(50%);
+  }

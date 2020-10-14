@@ -1,0 +1,28 @@
+:root{
+    --primary-color: #003F91;
+    --primary-color-light: #5DA9E9;
+    --secondary-color: #8f0000;
+    --primary-color-light: #e95d5d;
+  }
+  .homeContainer{
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+    justify-content: center;
+    align-items: center;
+    font-size:3em;
+    background: lightgray;
+    
+  }
+  .homeContainer>div button{
+    font-size: .6em;
+    background-color: gray;
+    color:white;
+    width:150px;
+    height:100px;
+    border-radius:7px;
+    cursor: pointer;
+  }
+  .homeContainer>button:hover{
+    filter: brightness(50%);
+  }

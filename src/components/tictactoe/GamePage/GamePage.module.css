@@ -1,0 +1,104 @@
+:root{
+    --primary-color: #003F91;
+    --primary-color-light: #5DA9E9;
+    --secondary-color: #8f0000;
+    --primary-color-light: #e95d5d;
+    --third-color:#A8763E;
+  }
+
+.GamePage{
+    height: 100vh;
+
+}
+
+.GamePage nav{
+    text-align: center;
+    color: white;
+    font-size:1.5em;
+    font-weight: bold;
+    background-color: var(--third-color);
+    height:40px;
+    }
+
+.gameContainer{
+    display:flex;
+    flex-direction: column;
+    align-items: center;
+}
+.displayContainer{
+    height:100px;
+}
+.grid {
+    display: grid;
+    grid-template-columns: 100px 100px 100px;
+    grid-template-rows: 100px 100px 100px;
+    /* margin-left:auto;
+    margin-right:auto; */
+}
+.grid div {
+    font-size: 4em;
+}
+
+.item1{
+    border-right: 2px solid #A8763E;
+    border-bottom: 2px solid #A8763E;
+}
+.item2{
+    border-left: 2px solid #A8763E;
+    border-right: 2px solid #A8763E;
+    border-bottom: 2px solid #A8763E;
+}
+.item3{
+    border-left: 2px solid #A8763E;
+    border-bottom: 2px solid #A8763E;
+}
+.item4{
+    border-right: 2px solid #A8763E;
+    border-bottom: 2px solid #A8763E;
+    border-top: 2px solid #A8763E;
+}
+.item5{
+    border: 2px solid #A8763E
+}
+.item6{
+    border-left: 2px solid #A8763E;
+    border-bottom: 2px solid #A8763E;
+    border-top: 2px solid #A8763E;
+}
+.item7{
+    border-top: 2px solid #A8763E;
+    border-right: 2px solid #A8763E;
+}
+
+.item8{
+    border-left: 2px solid #A8763E;
+    border-right: 2px solid #A8763E;
+    border-top: 2px solid #A8763E;
+}
+.item9{
+    border-left: 2px solid #A8763E;
+    border-top: 2px solid #A8763E;
+}
+.dispWin{
+    color: none;
+    font-size: 2.5em;
+}
+.displayTurn{
+    height:100px
+}
+.btn{
+    width:100px;
+    height:50px;
+    background-color: var(--third-color);
+    color: white;
+    font-weight: bold;
+    visibility: hidden;
+    cursor: pointer;
+}
+
+.btn:hover{
+    filter: brightness(50%);
+}
+.blue{
+    background-color: var(--primary-color-light);
+}

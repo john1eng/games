@@ -1,0 +1,125 @@
+:root{
+  --primary-color:#955E42;
+}
+#home-container{
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  justify-content: center;
+  align-items: center;
+  font-size:3em;
+  background: black;
+  color: white;
+}
+#home-container>button{
+  font-size: .6em;
+  background-color: var(--primary-color);
+  color:white;
+  width:150px;
+  height:50px;
+  border-radius:7px;
+  cursor: pointer;
+}
+#home-container>button:hover{
+  filter: brightness(50%);
+}
+#input-container{
+  display: flex;
+  height: 100vh;
+  justify-content: center;
+  align-items: center;
+  background-color: black;
+}
+#wrapper-form{
+  background-color:white;
+  padding:30px 40px 30px 40px;
+}
+#word{
+  width: 250px;
+  height:50px;
+  font-size: 2em;
+  margin-right:20px;
+}
+#submitBtn{
+  height:55px;
+  width: 100px;
+  font-size: 1.5em;
+  border-radius:7px;
+  background-color: var(--primary-color);
+  color:white;
+  cursor: pointer;
+}
+#submitBtn:hover{
+  filter: brightness(50%);
+}
+
+#game-container{
+  height: 100vh;
+}
+
+#game-container nav{
+text-align: center;
+color: white;
+font-size:1.5em;
+font-weight: bold;
+background-color: var(--primary-color);
+height:40px;
+}
+
+#game-display{
+  height:65%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+#game-display div:nth-child(1){
+  width:40%;
+}
+#game-display div:nth-child(2){
+  width:40%;
+}
+
+#image{
+  height:70%;
+  width:70%;
+}
+
+.choice-letter{
+  font-size: 2em;
+  font-weight: bold;
+  text-align: center;
+}
+#match-display{
+  text-align: center;
+}
+#displayLetter{
+  display:inline-block;
+  border-bottom: 2px solid black;
+  margin-right: 4px;
+  padding: 2px;
+  font-size: 2em;
+  width: 35px;
+}
+
+#displayLetterRed{
+  display:inline-block;
+  border-bottom: 2px solid black;
+  margin-right: 4px;
+  padding: 2px;
+  font-size: 2em;
+  width: 35px;
+  color: red;
+}
+
+#displayLetterSpace{
+  font-size: 2em;
+  margin-right:4px;
+}
+
+#play-again-btn{
+  background-color: var(--primary-color);
+  color: white;
+  font-weight: bold;
+  height: 40px;
+}
