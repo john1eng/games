@@ -1,29 +1,18 @@
 import React, { useEffect, useState } from "react";
-import Hangman0 from "../../img/hangman-img/hangman0.png";
-import Hangman1 from "../../img/hangman-img/hangman1.png";
-import Hangman2 from "../../img/hangman-img/hangman2.png";
-import Hangman3 from "../../img/hangman-img/hangman3.png";
-import Hangman4 from "../../img/hangman-img/hangman4.png";
-import Hangman5 from "../../img/hangman-img/hangman5.png";
-import Hangman6 from "../../img/hangman-img/hangman6.png";
-import Hangman7 from "../../img/hangman-img/hangman7.png";
-import Hangman8 from "../../img/hangman-img/hangman8.png";
-import Confetti from "../../img/hangman-img/Confetti.gif";
-import { NavigationBar } from "../navigation-bar/navigationBar";
-import { createImportSpecifier } from "typescript";
-
+import hangman from "../../img/hangman-img/_group-hangman-imgs";
 
 export const GameScreen: React.FunctionComponent<any> = (props) => {
   //'status' to update the img
   const [status, changeStatus] = useState<number>(0);
   //'match' to store correct letters
-  const [match, updateMatch] = useState<String[]>([]);
+  const [match, updateMatch] = useState<string[]>([]);
   //'endDes' to print win/lose msg
-  const [endDes, changeEndDes] = useState<String>("");
+  const [endDes, changeEndDes] = useState<string>("");
   //'playAgain' to display button when activate
-  const [playAgain, activatePlayAgain] = useState<boolean>(false);
+  const [playAgain, activatePlayAgain] = useState<true | false>(false);
   //store all the letters
-  const [display, changeDisplay] = useState<any>([])
+  const [display, changeDisplay] = useState<(JSX.Element | undefined)[]>([]);
+  //choices for hangman
   const choices = [
     "A",
     "B",
@@ -53,59 +42,71 @@ export const GameScreen: React.FunctionComponent<any> = (props) => {
     "Z",
   ];
 
+  //convert the props.word to uppercase
+  const word: string = props.word.toUpperCase();
+
   //check if win/lose when ever the match and status is updated
   useEffect(() => {
-    changeDisplay(temp);
+    checkDisplay();
     checkVictory();
-    checkStatus();
-  }, [props, match, status]);
+    checkLost();
+  }, [match, status]);
 
-  const word = props.word.toUpperCase();
-
-  //check to see if the game is over
-  const checkStatus = () => {
-    if (status === 7) {
-
-      // @ts-ignore
-      var element = document.getElementsByClassName("choice-letter");
-      //disable the choice letters
-      for (var i = 0; i < element.length; i++) {
-        //@ts-ignore
-        element[i].style.pointerEvents = "none";
+  //when ever the match change this will update
+  const checkDisplay = (): void => {
+    let temp = word.split("").map((letter: string) => {
+      let reg = new RegExp(letter);
+      if (letter === " ") {
+        return <span id="displayLetterSpace"> </span>;
       }
+      if (reg.test(match.join(""))) {
+        return <span id="displayLetter">{letter}</span>;
+      } else {
+        return <span id="displayLetter">&nbsp;</span>;
+      }
+    });
+    changeDisplay(temp);
+  };
+  //check to see if the game is over
+  const checkLost = (): void => {
+    //lose status
+    if (status === 7) {
+      let element = document.getElementsByClassName("choice-letter");
+      //disable the choice letters
+      //@ts-ignore
+      Array.from(element).map((cur) => (cur.style.pointerEvents = "none"));
       changeEndDes("You Lose");
-      let tempdisplay = word.split('').map((l:any) => 
-      
-      {
-        
-        if (l === " ")
-          return <span id="displayLetterSpace">{l}</span>
-        // if(match.)
-        if(matchLetter(l, match)) 
-          return <span id="displayLetter">{l}</span>
-        if (l !== " ")
-          return <span id="displayLetterRed">{l}</span>
-        
-      });
+      let tempdisplay: (JSX.Element | undefined)[] = word
+        .split("")
+        .map((letter: any) => {
+          if (letter === " ")
+            return <span id="displayLetterSpace">{letter}</span>;
+          // if(match.)
+          if (match.includes(letter))
+            return <span id="displayLetter">{letter}</span>;
+          if (letter !== " ")
+            return <span id="displayLetterRed">{letter}</span>;
+        });
+      //display the letter
       changeDisplay(tempdisplay);
-      console.log(display);
       activatePlayAgain(true);
     }
+    //function that will take an array of letter and match it with a letter
+    // function matchLetter(letter: any, array: any): any {
+    //   console.log(array[0], letter);
+    //   for (let i = 0; i < array.length; i++) {
+    //     if (letter === array[i]) {
+    //       console.log("hello");
+    //       return true;
+    //     }
+    //   }
+    // }
   };
 
-  function matchLetter(letter:any, array:any):any {
-    console.log(array[0], letter)
-    for(let i = 0; i<array.length; i++){
-      if(letter===array[i]){
-        console.log("hello")
-        return true;
-      }
-      };
-  }
-
-  const checkVictory = () => {
-    let victory = word.split("").every((l: any) => {
-      return l !== " " ? new RegExp(l).test(match.join("")) : true;
+  //check if you win ( guess all the letters)
+  const checkVictory = (): void => {
+    let victory: boolean = word.split("").every((letter: string) => {
+      return match.includes(letter) || letter === " ";
     });
     if (victory) {
       changeStatus(8);
@@ -114,65 +115,48 @@ export const GameScreen: React.FunctionComponent<any> = (props) => {
       // @ts-ignore
       var elements = document.getElementsByClassName("choice-letter");
 
-      for (var i = 0; i < elements.length; i++) {
-        //@ts-ignore
-        elements[i].style.pointerEvents = "none";
-      }
+      //@ts-ignore
+      Array.from(elements).map((cur) => (cur.style.pointerEvents = "none"));
     }
   };
 
-
-  let temp = word.split("").map((l: any) => {
-    let reg = new RegExp(l);
-    if (l === " ") {
-      return <span id="displayLetterSpace"> </span>;
-    }
-    if (reg.test(match.join(""))) {
-      return <span id="displayLetter">{l}</span>;
-    } else {
-      return <span id="displayLetter">&nbsp;</span>;
-    }
-  });
-
-  
-
-  const grayLetter = (letter: String) => {
+  const grayLetter = (letter: string): void => {
     console.log(letter);
     // @ts-ignore
     document.getElementsByClassName(letter)[0].style.color = "lightgray";
     //@ts-ignore
-    let ele = document.getElementsByClassName("A")
+    let ele = document.getElementsByClassName("A");
     console.log(ele);
     // @ts-ignore
     document.getElementsByClassName(letter)[0].style.pointerEvents = "none";
   };
 
-  const displayImg = (status: number) => {
+  const displayImg = (status: number): JSX.Element | undefined => {
     switch (`Hangman${status}`) {
       case "Hangman0":
-        return <img id="image" src={Hangman0} alt="img of hangman" />;
+        return <img id="image" src={hangman.Hangman0} alt="img of hangman" />;
       case "Hangman1":
-        return <img id="image" src={Hangman1} alt="img of hangman" />;
+        return <img id="image" src={hangman.Hangman1} alt="img of hangman" />;
       case "Hangman2":
-        return <img id="image" src={Hangman2} alt="img of hangman" />;
+        return <img id="image" src={hangman.Hangman2} alt="img of hangman" />;
       case "Hangman3":
-        return <img id="image" src={Hangman3} alt="img of hangman" />;
+        return <img id="image" src={hangman.Hangman3} alt="img of hangman" />;
       case "Hangman4":
-        return <img id="image" src={Hangman4} alt="img of hangman" />;
+        return <img id="image" src={hangman.Hangman4} alt="img of hangman" />;
       case "Hangman5":
-        return <img id="image" src={Hangman5} alt="img of hangman" />;
+        return <img id="image" src={hangman.Hangman5} alt="img of hangman" />;
       case "Hangman6":
-        return <img id="image" src={Hangman6} alt="img of hangman" />;
+        return <img id="image" src={hangman.Hangman6} alt="img of hangman" />;
       case "Hangman7":
-        return <img id="image" src={Hangman7} alt="img of hangman" />;
+        return <img id="image" src={hangman.Hangman7} alt="img of hangman" />;
       case "Hangman8":
-        return <img id="image" src={Hangman8} alt="img of hangman" />
+        return <img id="image" src={hangman.Hangman8} alt="img of hangman" />;
 
       // default: return <img id="image" src={Hangman7} alt="img of hangman" />;
     }
   };
 
-  const displayChoice = choices.map((letter) => (
+  const displayChoice: JSX.Element[] = choices.map((letter) => (
     <span
       className={`choice-letter ${letter}`}
       onClick={() => {
@@ -184,7 +168,7 @@ export const GameScreen: React.FunctionComponent<any> = (props) => {
     </span>
   ));
 
-  const checkMatch = (letter: String) => {
+  const checkMatch = (letter: string): void => {
     let reg = new RegExp(letter as any);
     if (!reg.test(word)) {
       changeStatus(status + 1);
@@ -195,10 +179,11 @@ export const GameScreen: React.FunctionComponent<any> = (props) => {
     }
   };
 
-  const playAgainBtn = () => {
+  const playAgainBtn = (): void => {
     props.changeGameS(false);
     props.changeInputS(true);
   };
+
   return (
     <div id="game-container">
       <section id="game-display">
