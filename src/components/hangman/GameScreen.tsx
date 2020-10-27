@@ -72,6 +72,7 @@ export const GameScreen: React.FunctionComponent<any> = (props) => {
     //lose status
     if (status === 7) {
       let element = document.getElementsByClassName("choice-letter");
+      console.log(status);
       //disable the choice letters
       //@ts-ignore
       Array.from(element).map((cur) => (cur.style.pointerEvents = "none"));
