@@ -102,3 +102,15 @@
 .blue{
     background-color: var(--primary-color-light);
 }
+
+.item{
+    animation: none
+}
+@keyframes change{
+    0%{
+        background-color: yellow;
+    }
+    100%{
+        background-color: yellow;
+    }
+}
